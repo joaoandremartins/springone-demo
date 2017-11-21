@@ -39,7 +39,8 @@ public class HousesApplication {
 				os.write(internetPictureBytes);
 			}
 
-			Resource pivotalPicture = context.getResource("http://jesseddy.com/blog/wp-content/uploads/2013/10/Pivotal_Desk.png");
+			Resource pivotalPicture = context.getResource("https://www.officelovin.com/" +
+					"wp-content/uploads/2016/09/pivotal-labs-office-3.jpg");
 			Resource gcsPivotalPicture = context.getResource("gs://springone-houses/pivotal-nyc.png");
 
 			byte[] pivotalBytes = IOUtils.toByteArray(pivotalPicture.getInputStream());
@@ -49,7 +50,7 @@ public class HousesApplication {
 			}
 
 			Stream.of(new House("111 8th Av, NYC", gcsPicture.getURI().toString()),
-					new House("Avenue of Americas, NYC", gcsPivotalPicture.getURI().toString()),
+					new House("636 Avenue of Americas, NYC", gcsPivotalPicture.getURI().toString()),
 					new House("White House"),
 					new House("Pentagon"),
 					new House("Empire State Building"))

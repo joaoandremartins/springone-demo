@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RefreshScope
@@ -25,9 +26,17 @@ public class WebController {
 	@Value("${house_id}")
 	private long houseId;
 
+	@GetMapping("/getId")
+	public long getId() {
+		return houseId;
+	}
+
 	@GetMapping("/")
 	public ResponseEntity<Resource> serveImage() {
-		House house = houseRepository.findOne(houseId);
+		long fetchedId = new RestTemplate()
+				.getForObject("http://localhost:8080/getId",
+						Long.class);
+		House house = houseRepository.findOne(fetchedId);
 		Resource image = context.getResource(house.getGcsPictureAddress());
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.IMAGE_JPEG);
